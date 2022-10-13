@@ -1,10 +1,24 @@
 const path = require('path');
+const resolve = require( 'resolve-app-path' );
+const CopyPlugin = require("copy-webpack-plugin");
+const devMiddleware = require("webpack-dev-middleware");
 
 module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+  },
+  mode: 'development',
+  devServer: {
+      static: {
+        directory: path.join(__dirname, 'dist'),
+      },
+      compress: true,
+      port: 9000,
+      devMiddleware: {
+        writeToDisk: true,
+      },
   },
   module: {
     rules: [
@@ -26,4 +40,11 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+      new CopyPlugin({
+        patterns: [
+          { from: path.resolve(__dirname, "images/*.png"), to: "images/" },
+        ],
+      }),
+    ],
 };
