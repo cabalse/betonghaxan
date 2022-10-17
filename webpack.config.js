@@ -43,7 +43,7 @@ module.exports = {
   plugins: [
       new CopyPlugin({
         patterns: [
-          { from: path.resolve(__dirname, "images/*.png"), to: "images/" },
+          { from: "images/*.*" },
         ],
       }),
     ],
